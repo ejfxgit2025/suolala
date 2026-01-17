@@ -182,6 +182,27 @@
         </div>
     </section>
 
+        <!-- Music Player -->
+    <div class="music-player">
+        <audio id="suolalaAudio" loop>
+            <source src="suolalasong.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <button class="music-toggle" id="musicToggle">
+            <i class="fas fa-play" id="musicIcon"></i>
+        </button>
+        <div class="music-info">
+            <span class="song-title">SUOLALA Theme</span>
+            <div class="volume-control">
+                <i class="fas fa-volume-up"></i>
+                <input type="range" min="0" max="100" value="70" class="volume-slider" id="volumeSlider">
+            </div>
+        </div>
+        <div class="music-progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </div>
+
     <!-- NFTs Section -->
     <section class="nfts-section" id="nfts">
         <div class="container">
