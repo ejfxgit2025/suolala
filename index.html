@@ -82,12 +82,22 @@
                 <h1 class="hero-title build-rise">We Build, We Rise</h1>
                 <p class="hero-subtitle">The premier Chinese ticker on Solana, inspired by Lily Liu's tweet and born as an original IP that captures the resilient spirit of Solana builders.</p>
                 <div class="hero-buttons">
-                    <a href="#" class="btn btn-primary">
+                    <a href="https://jup.ag/swap/SOL-CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8" target="_blank" class="btn btn-primary">
                         <i class="fas fa-coins"></i> Buy $SUOLALA
                     </a>
-                    <a href="#" class="btn btn-secondary">
-                        <i class="fas fa-chart-line"></i> View Chart
+                    <a href="https://dexscreener.com/solana/79Qaq5b1JfC8bFuXkAvXTR67fRPmMjMVNkEA3bb8bLzi" target="_blank" class="btn btn-secondary">
+                        <i class="fas fa-chart-line"></i> Live Chart
                     </a>
+                </div>
+                <div class="hero-info">
+                    <div class="info-item">
+                        <i class="fas fa-hashtag"></i>
+                        <span>Contract: <code>CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8</code></span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-link"></i>
+                        <span>DexScreener: <a href="https://dexscreener.com/solana/79Qaq5b1JfC8bFuXkAvXTR67fRPmMjMVNkEA3bb8bLzi" target="_blank">View Pair</a></span>
+                    </div>
                 </div>
             </div>
             <div class="hero-girl">
@@ -101,19 +111,19 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">$SUOLALA Token</h2>
-                <p class="section-subtitle">The future of meme utility</p>
+                <p class="section-subtitle">Live Solana Meme Token Data</p>
             </div>
             
             <div class="token-stats">
                 <div class="token-stat-card">
                     <div class="stat-header">
                         <h3>Live Price</h3>
-                        <div class="price-change positive">
+                        <div class="price-change positive" id="priceChange">
                             <i class="fas fa-arrow-up"></i>
-                            <span id="priceChange">+2.34%</span>
+                            <span id="priceChangeText">+1.10%</span>
                         </div>
                     </div>
-                    <div class="stat-value" id="livePrice">$0.004567</div>
+                    <div class="stat-value" id="livePrice">$0.004055</div>
                     <div class="stat-subtext">Per $SUOLALA</div>
                 </div>
                 
@@ -121,7 +131,7 @@
                     <div class="stat-header">
                         <h3>Market Cap</h3>
                     </div>
-                    <div class="stat-value">$12.4M</div>
+                    <div class="stat-value" id="marketCap">$12.4M</div>
                     <div class="stat-subtext">Fully Diluted</div>
                 </div>
                 
@@ -129,13 +139,33 @@
                     <div class="stat-header">
                         <h3>Holders</h3>
                     </div>
-                    <div class="stat-value">8,452</div>
+                    <div class="stat-value" id="holders">8,452</div>
                     <div class="stat-subtext">Unique Wallets</div>
                 </div>
             </div>
             
+            <!-- Token Links -->
+            <div class="token-links">
+                <a href="https://solscan.io/token/CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8" target="_blank" class="token-link">
+                    <i class="fas fa-file-contract"></i>
+                    <span>Contract: CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8</span>
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+                <a href="https://dexscreener.com/solana/79Qaq5b1JfC8bFuXkAvXTR67fRPmMjMVNkEA3bb8bLzi" target="_blank" class="token-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Live Chart on DexScreener</span>
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+                <a href="https://jup.ag/swap/SOL-CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8" target="_blank" class="token-link buy-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Buy on Jupiter</span>
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+            </div>
+            
             <div class="chart-container">
-                <canvas id="priceChart"></canvas>
+                <iframe src="https://dexscreener.com/solana/79Qaq5b1JfC8bFuXkAvXTR67fRPmMjMVNkEA3bb8bLzi?embed=1&theme=dark&chartInterval=1h" 
+                        style="width:100%; height:400px; border:none; border-radius:20px;"></iframe>
             </div>
         </div>
     </section>
@@ -169,15 +199,15 @@
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3 class="feature-title">Transparent & Secure</h3>
-                    <p class="feature-text">Fully audited smart contracts with locked liquidity for maximum security.</p>
+                    <h3 class="feature-title">Verified Contract</h3>
+                    <p class="feature-text">Contract: CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-rocket"></i>
                     </div>
-                    <h3 class="feature-title">Meme + Utility Vision</h3>
+                    <h3 class="feature-title">Real Utility Vision</h3>
                     <p class="feature-text">Combining meme culture with real utility for sustainable growth.</p>
                 </div>
             </div>
@@ -284,8 +314,8 @@
                         <h3 class="phase-title">Phase 1 - Completed</h3>
                         <ul class="phase-list">
                             <li>Token launch & liquidity pool</li>
-                            <li>Community building</li>
-                            <li>First 1,000 holders</li>
+                            <li>Contract: CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8</li>
+                            <li>First 8,452 holders</li>
                             <li>Website & socials launch</li>
                         </ul>
                     </div>
@@ -345,6 +375,10 @@
                     <i class="fas fa-chart-line"></i>
                     <span>trends.fun</span>
                 </a>
+                <a href="https://dexscreener.com/solana/79Qaq5b1JfC8bFuXkAvXTR67fRPmMjMVNkEA3bb8bLzi" target="_blank" class="community-btn chart-btn">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>DexScreener</span>
+                </a>
             </div>
         </div>
     </section>
@@ -372,12 +406,20 @@
                     <a href="https://trends.fun" target="_blank" class="footer-social">
                         <i class="fas fa-chart-line"></i>
                     </a>
+                    <a href="https://dexscreener.com/solana/79Qaq5b1JfC8bFuXkAvXTR67fRPmMjMVNkEA3bb8bLzi" target="_blank" class="footer-social">
+                        <i class="fas fa-chart-bar"></i>
+                    </a>
                 </div>
                 
                 <div class="footer-disclaimer">
-                    <p>© 2023 SUOLALA. All rights reserved. This is a meme token with no intrinsic value or expectation of financial return. Cryptocurrency investments are highly volatile and risky. Only invest what you can afford to lose.</p>
+                    <p>© 2024 SUOLALA. All rights reserved. This is a meme token with no intrinsic value or expectation of financial return. Cryptocurrency investments are highly volatile and risky. Only invest what you can afford to lose.</p>
+                    <div class="contract-info">
+                        <strong>Contract Address:</strong> CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8
+                    </div>
                     <p class="trends-link">
-                        Powered by <a href="https://trends.fun" target="_blank">trends.fun</a>
+                        Powered by <a href="https://trends.fun" target="_blank">trends.fun</a> | 
+                        <a href="https://solscan.io/token/CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8" target="_blank">Solscan</a> | 
+                        <a href="https://dexscreener.com/solana/79Qaq5b1JfC8bFuXkAvXTR67fRPmMjMVNkEA3bb8bLzi" target="_blank">DexScreener</a>
                     </p>
                 </div>
             </div>
