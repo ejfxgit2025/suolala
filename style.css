@@ -431,7 +431,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.2rem;
 }
 
-/* Hero Section - Updated "We Build, We Rise" color */
+/* Hero Section - Updated with GIF */
 .hero-section {
     padding: 150px 0 100px;
     position: relative;
@@ -534,6 +534,7 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(-5px);
 }
 
+/* Updated Hero Girl with GIF */
 .hero-girl {
     width: 300px;
     height: 400px;
@@ -543,27 +544,30 @@ h1, h2, h3, h4, h5, h6 {
     border: 2px solid var(--glass-border);
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 15px 40px rgba(153, 69, 255, 0.2);
+    transition: all 0.4s ease;
 }
 
-.hero-girl::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.2rem;
-    color: var(--text-secondary);
+.hero-girl:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 20px 50px rgba(153, 69, 255, 0.4);
+    border-color: var(--primary-color);
 }
 
-.hero-girl::after {
-    content: 'SUOLALA Character';
-    position: absolute;
-    bottom: 20px;
-    left: 0;
+.suolala-gif {
     width: 100%;
-    text-align: center;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 28px;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.hero-girl:hover .suolala-gif {
+    transform: scale(1.1);
 }
 
 /* Token Section */
@@ -1249,6 +1253,11 @@ body[data-theme="light"] .music-progress {
         grid-template-columns: 1fr;
         gap: 20px;
     }
+    
+    .hero-girl {
+        width: 280px;
+        height: 380px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1312,9 +1321,15 @@ body[data-theme="light"] .music-progress {
         padding: 20px;
     }
     
-    /* Mobile Music Player - Same appearance, shorter length */
+    .hero-girl {
+        width: 250px;
+        height: 350px;
+        margin-top: 40px;
+    }
+    
+    /* Mobile Music Player */
     .music-player {
-        width: 280px; /* Slightly shorter for mobile */
+        width: 280px;
         max-width: 280px;
         padding: 10px 15px;
         left: 15px;
@@ -1390,7 +1405,7 @@ body[data-theme="light"] .music-progress {
         font-size: 1rem;
     }
     
-    /* Smaller screens - Keep all elements but adjust size */
+    /* Smaller screens */
     .music-player {
         width: 260px;
         max-width: 260px;
