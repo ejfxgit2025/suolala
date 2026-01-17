@@ -6,6 +6,9 @@ const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 const navLinks = document.querySelectorAll('.nav-link');
 const livePriceElement = document.getElementById('livePrice');
 const priceChangeElement = document.getElementById('priceChange');
+const priceChangeText = document.getElementById('priceChangeText');
+const marketCapElement = document.getElementById('marketCap');
+const holdersElement = document.getElementById('holders');
 const particlesContainer = document.querySelector('.particles-container');
 const floatingShapes = document.querySelector('.floating-shapes');
 
@@ -21,6 +24,10 @@ const songTitle = document.querySelector('.song-title');
 // Music Player State
 let isPlaying = false;
 let audioInitialized = false;
+
+// Real Token Data
+let currentPrice = 0.004055;
+let priceChange = 1.10;
 
 // Mobile Menu Toggle
 mobileMenuBtn.addEventListener('click', () => {
@@ -72,31 +79,84 @@ function setupSmoothScrolling() {
     });
 }
 
-// Fake Live Price Updates
-let currentPrice = 0.004567;
-let priceChange = 2.34;
+// Real Price Simulation with Real Data Fetching
+let priceData = [0.004055];
+let priceHistory = [];
+const MAX_HISTORY = 50;
 
-function updateLivePrice() {
-    // Simulate small price fluctuations
-    const fluctuation = (Math.random() - 0.5) * 0.0005;
-    const newPrice = currentPrice + fluctuation;
+async function fetchRealTokenData() {
+    try {
+        // Fetch from DexScreener API
+        const response = await fetch('https://api.dexscreener.com/latest/dex/pairs/solana/79Qaq5b1JfC8bFuXkAvXTR67fRPmMjMVNkEA3bb8bLzi');
+        const data = await response.json();
+        
+        if (data.pairs && data.pairs.length > 0) {
+            const pair = data.pairs[0];
+            
+            // Update with real data
+            currentPrice = parseFloat(pair.priceUsd);
+            priceChange = parseFloat(pair.priceChange.h24);
+            
+            // Update price display
+            livePriceElement.textContent = `$${currentPrice.toFixed(6)}`;
+            
+            // Update price change
+            const isPositive = priceChange >= 0;
+            priceChangeElement.innerHTML = `<i class="fas fa-arrow-${isPositive ? 'up' : 'down'}"></i> <span id="priceChangeText">${isPositive ? '+' : ''}${priceChange.toFixed(2)}%</span>`;
+            priceChangeElement.className = `price-change ${isPositive ? 'positive' : 'negative'}`;
+            
+            // Update market cap if available
+            if (pair.fdv) {
+                const marketCap = pair.fdv;
+                if (marketCap >= 1000000) {
+                    marketCapElement.textContent = `$${(marketCap / 1000000).toFixed(1)}M`;
+                } else {
+                    marketCapElement.textContent = `$${Math.floor(marketCap).toLocaleString()}`;
+                }
+            }
+            
+            // Add to history for price simulation
+            priceData.push(currentPrice);
+            if (priceData.length > 10) priceData.shift();
+            
+            console.log('Updated with real data:', { price: currentPrice, change: priceChange });
+            return true;
+        }
+    } catch (error) {
+        console.error('Error fetching real token data:', error);
+        return false;
+    }
+    return false;
+}
+
+function simulatePriceFluctuations() {
+    // Add small random fluctuations to the current price
+    const fluctuation = (Math.random() - 0.5) * 0.0001;
+    const newPrice = Math.max(0.000001, currentPrice + fluctuation);
     
-    // Calculate percentage change
-    const changePercent = ((newPrice - currentPrice) / currentPrice) * 100;
+    // Store in history
+    priceHistory.push(newPrice);
+    if (priceHistory.length > MAX_HISTORY) {
+        priceHistory.shift();
+    }
     
-    // Update current price with some resistance to prevent extreme swings
-    currentPrice = newPrice;
-    priceChange = changePercent;
+    // Calculate 24h change based on history
+    if (priceHistory.length >= 2) {
+        const oldPrice = priceHistory[0];
+        priceChange = ((newPrice - oldPrice) / oldPrice) * 100;
+    }
     
     // Update UI
-    livePriceElement.textContent = `$${currentPrice.toFixed(6)}`;
+    livePriceElement.textContent = `$${newPrice.toFixed(6)}`;
     
     const isPositive = priceChange >= 0;
-    priceChangeElement.innerHTML = `<i class="fas fa-arrow-${isPositive ? 'up' : 'down'}"></i> ${Math.abs(priceChange).toFixed(2)}%`;
+    priceChangeElement.innerHTML = `<i class="fas fa-arrow-${isPositive ? 'up' : 'down'}"></i> <span id="priceChangeText">${isPositive ? '+' : ''}${Math.abs(priceChange).toFixed(2)}%</span>`;
     priceChangeElement.className = `price-change ${isPositive ? 'positive' : 'negative'}`;
     
-    // Update chart
-    updateChartData();
+    // Update chart if exists
+    updatePriceChart();
+    
+    return newPrice;
 }
 
 // Enhanced Background Animations
@@ -171,7 +231,7 @@ function createFloatingShapes() {
     }
 }
 
-// Mini Chart Animation
+// Mini Price Chart Animation
 let chartCanvas, chartCtx, chartData, chart;
 
 function initializeChart() {
@@ -180,13 +240,13 @@ function initializeChart() {
     
     chartCtx = chartCanvas.getContext('2d');
     
-    // Initial chart data
+    // Initial chart data based on current price
     chartData = [];
-    let currentValue = 0.0045;
+    let baseValue = currentPrice;
     
     for (let i = 0; i < 50; i++) {
-        currentValue += (Math.random() - 0.5) * 0.0001;
-        chartData.push(currentValue);
+        baseValue += (Math.random() - 0.5) * 0.0001;
+        chartData.push(Math.max(0.000001, baseValue));
     }
     
     // Create gradient
@@ -209,7 +269,7 @@ function initializeChart() {
             const step = this.width / (dataLength - 1);
             const max = Math.max(...this.data);
             const min = Math.min(...this.data);
-            const range = max - min;
+            const range = max - min || 0.000001;
             const scale = this.height / range;
             
             // Draw gradient area
@@ -276,7 +336,7 @@ function initializeChart() {
     resizeChart();
 }
 
-function updateChartData() {
+function updatePriceChart() {
     if (chart) {
         chart.update(currentPrice);
     }
@@ -367,7 +427,7 @@ function setupScrollAnimations() {
     elementsToAnimate.forEach(el => observer.observe(el));
 }
 
-// Music Player Functionality - FIXED VERSION
+// Music Player Functionality
 function initializeMusicPlayer() {
     // Check if audio element exists
     if (!suolalaAudio) {
@@ -440,24 +500,17 @@ function initializeMusicPlayer() {
     updateMusicButton();
 }
 
-// Toggle play/pause - FIXED VERSION
+// Toggle play/pause
 function toggleMusic() {
     if (!suolalaAudio) return;
     
-    console.log("Toggle music called, current state:", isPlaying);
-    
     if (isPlaying) {
-        console.log("Pausing audio...");
         suolalaAudio.pause();
-        // The 'pause' event will update isPlaying and the button
     } else {
-        console.log("Playing audio...");
         suolalaAudio.play().then(() => {
             console.log("Audio play successful");
-            // The 'play' event will update isPlaying and the button
         }).catch(e => {
             console.log("Audio play failed:", e);
-            // Show user they need to interact first on some browsers
             if (musicToggle) {
                 musicToggle.style.animation = 'shake 0.5s ease';
                 setTimeout(() => {
@@ -480,10 +533,8 @@ function toggleMusic() {
     }
 }
 
-// Update music button - FIXED VERSION
+// Update music button
 function updateMusicButton() {
-    console.log("Updating music button, isPlaying:", isPlaying);
-    
     if (!musicIcon || !musicPlayer) return;
     
     // Update icon
@@ -495,8 +546,6 @@ function updateMusicButton() {
     } else {
         musicPlayer.classList.remove('playing');
     }
-    
-    console.log("Button icon set to:", musicIcon.className);
 }
 
 // Initialize audio on first user interaction
@@ -519,12 +568,74 @@ function initAudioOnInteraction() {
     }
 }
 
+// Real-time Data Updater
+async function updateRealTimeData() {
+    // Try to fetch real data first
+    const realDataSuccess = await fetchRealTokenData();
+    
+    // If real data fetch fails or we want to keep the simulation running
+    if (!realDataSuccess) {
+        currentPrice = simulatePriceFluctuations();
+    }
+    
+    // Update the chart if it exists
+    updatePriceChart();
+}
+
+// Interactive NFT Cards
+function setupNFTInteractions() {
+    const nftCards = document.querySelectorAll('.nft-card');
+    
+    nftCards.forEach(card => {
+        const buyBtn = card.querySelector('.btn-nft');
+        
+        if (buyBtn) {
+            buyBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Add click animation
+                this.classList.add('clicked');
+                setTimeout(() => {
+                    this.classList.remove('clicked');
+                }, 300);
+                
+                // Show purchase modal or redirect (simulated)
+                console.log(`NFT purchase attempt: ${card.querySelector('.nft-name').textContent}`);
+                
+                // Simulate purchase animation
+                card.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 200);
+            });
+        }
+        
+        // Hover effect for NFT cards
+        card.addEventListener('mouseenter', function() {
+            const placeholder = this.querySelector('.nft-placeholder');
+            if (placeholder) {
+                placeholder.style.transform = 'scale(1.05)';
+                placeholder.style.transition = 'transform 0.3s ease';
+            }
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            const placeholder = this.querySelector('.nft-placeholder');
+            if (placeholder) {
+                placeholder.style.transform = 'scale(1)';
+            }
+        });
+    });
+}
+
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     setupSmoothScrolling();
     initializeChart();
     setupThemeToggle();
     setupScrollAnimations();
+    setupNFTInteractions();
     
     // Create enhanced background animations
     createParticles();
@@ -532,14 +643,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize music player
     if (suolalaAudio && musicToggle && volumeSlider) {
-        console.log("Initializing music player...");
         initializeMusicPlayer();
         
         // Set up event listeners for music player
         musicToggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            console.log("Music toggle clicked");
             toggleMusic();
         });
         
@@ -555,7 +664,6 @@ document.addEventListener('DOMContentLoaded', () => {
             musicPlayer.addEventListener('click', function(e) {
                 if (e.target !== volumeSlider && !volumeSlider.contains(e.target) && e.target !== musicToggle) {
                     e.preventDefault();
-                    console.log("Music player clicked");
                     toggleMusic();
                 }
             });
@@ -580,19 +688,20 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('button, a').forEach(element => {
             element.addEventListener('click', initAudioOnInteraction, { once: true });
         });
-    } else {
-        console.error("Music player elements not found:", {
-            audio: !!suolalaAudio,
-            toggle: !!musicToggle,
-            slider: !!volumeSlider
-        });
     }
     
-    // Start price updates
-    setInterval(updateLivePrice, 3000);
+    // Fetch real token data on load
+    fetchRealTokenData();
     
-    // Initialize with a random delay
-    setTimeout(updateLivePrice, 1000);
+    // Start price updates every 3 seconds for simulation
+    const simulationInterval = setInterval(() => {
+        simulatePriceFluctuations();
+    }, 3000);
+    
+    // Fetch real data every 30 seconds
+    const realDataInterval = setInterval(async () => {
+        await fetchRealTokenData();
+    }, 30000);
     
     // Add animation classes
     document.body.classList.add('loaded');
@@ -605,13 +714,44 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Set a timeout to check if audio loaded
         setTimeout(() => {
-            if (suolalaAudio.readyState < 2 && songTitle) { // 2 = HAVE_CURRENT_DATA
+            if (suolalaAudio.readyState < 2 && songTitle) {
                 console.log("Audio file may be missing or inaccessible");
                 songTitle.textContent = "Add suolalasong.mp3";
                 songTitle.style.color = "var(--warning)";
             }
         }, 3000);
     }
+    
+    // Add click animations to all buttons
+    document.querySelectorAll('.btn').forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Create ripple effect
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                width: ${size}px;
+                height: ${size}px;
+                top: ${y}px;
+                left: ${x}px;
+                pointer-events: none;
+            `;
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
 });
 
 // Add CSS for theme toggle and particles
@@ -696,9 +836,179 @@ const themeToggleCSS = `
     10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
     20%, 40%, 60%, 80% { transform: translateX(5px); }
 }
+
+/* Ripple effect for buttons */
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Click animation for NFT buttons */
+.btn-nft.clicked {
+    animation: nftClick 0.3s ease;
+}
+
+@keyframes nftClick {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+/* Solana logo pulse */
+@keyframes solanaPulse {
+    0%, 100% {
+        opacity: 0.7;
+        transform: scaleY(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scaleY(1.3);
+    }
+}
+
+/* Floating shapes */
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(100px, 50px) rotate(90deg);
+    }
+    50% {
+        transform: translate(50px, 100px) rotate(180deg);
+    }
+    75% {
+        transform: translate(-50px, 50px) rotate(270deg);
+    }
+}
+
+/* Text glow for hero */
+@keyframes textGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px rgba(255, 107, 157, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(255, 107, 157, 0.6));
+    }
+}
+
+/* Pulse animation for current roadmap phase */
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(153, 69, 255, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 15px rgba(153, 69, 255, 0);
+    }
+}
+
+/* Music player pulse */
+@keyframes musicPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(153, 69, 255, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(153, 69, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(153, 69, 255, 0);
+    }
+}
+
+/* Grid background animation */
+@keyframes gridMove {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(20px, 20px);
+    }
+}
+
+/* Glow pulse animation */
+@keyframes glowPulse {
+    0%, 100% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+/* Glow rotate animation */
+@keyframes glowRotate {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Twinkle effect for particles */
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.2;
+    }
+    50% {
+        opacity: 1;
+    }
+}
 `;
 
 // Inject theme toggle CSS
 const styleSheet = document.createElement('style');
 styleSheet.textContent = themeToggleCSS;
 document.head.appendChild(styleSheet);
+
+// Handle page visibility change for performance
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        // Page is hidden, pause music and reduce intervals
+        if (suolalaAudio && isPlaying) {
+            suolalaAudio.pause();
+        }
+    } else {
+        // Page is visible again, resume if needed
+        if (suolalaAudio && isPlaying) {
+            suolalaAudio.play().catch(e => console.log("Resume failed:", e));
+        }
+    }
+});
+
+// Add error handling for network issues
+window.addEventListener('online', function() {
+    console.log("Network connection restored");
+    // Try to fetch real data again
+    fetchRealTokenData();
+});
+
+window.addEventListener('offline', function() {
+    console.log("Network connection lost");
+    // Show offline message or handle gracefully
+    if (songTitle) {
+        songTitle.textContent = "SUOLALA Theme (Offline)";
+    }
+});
+
+// Add copy contract address functionality
+document.querySelectorAll('.contract-info, .info-item code').forEach(element => {
+    element.addEventListener('click', function() {
+        const contractAddress = 'CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8';
+        navigator.clipboard.writeText(contractAddress).then(() => {
+            // Show copied message
+            const originalText = this.textContent;
+            this.textContent = 'Copied!';
+            this.style.color = 'var(--success)';
+            
+            setTimeout(() => {
+                this.textContent = originalText;
+                this.style.color = '';
+            }, 2000);
+        });
+    });
+});
