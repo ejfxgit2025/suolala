@@ -431,7 +431,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.2rem;
 }
 
-/* Hero Section - Updated with GIF */
+/* Hero Section - Updated with Info Items */
 .hero-section {
     padding: 150px 0 100px;
     position: relative;
@@ -496,7 +496,7 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .btn {
@@ -534,11 +534,56 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(-5px);
 }
 
+/* Hero Info Items */
+.hero-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.info-item i {
+    color: var(--primary-color);
+    width: 20px;
+}
+
+.info-item code {
+    background: rgba(153, 69, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.85rem;
+}
+
+.info-item a {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+.info-item a:hover {
+    text-decoration: underline;
+}
+
 /* Updated Hero Girl with GIF */
 .hero-girl {
     width: 300px;
     height: 400px;
-    margin: 0 auto;
+    margin: 40px auto 0;
     background: var(--card-bg);
     border-radius: 30px;
     border: 2px solid var(--glass-border);
@@ -598,7 +643,7 @@ h1, h2, h3, h4, h5, h6 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .token-stat-card {
@@ -655,13 +700,83 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.9rem;
 }
 
+/* Token Links */
+.token-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.token-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 25px;
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.token-link:hover {
+    background: rgba(153, 69, 255, 0.1);
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 25px rgba(153, 69, 255, 0.2);
+}
+
+.token-link i:first-child {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    width: 20px;
+}
+
+.token-link i:last-child {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-left: auto;
+}
+
+.token-link span {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.buy-link {
+    background: var(--gradient-primary);
+    color: white;
+    font-weight: 600;
+    border: none;
+}
+
+.buy-link:hover {
+    background: var(--gradient-primary);
+    opacity: 0.9;
+}
+
 .chart-container {
     background: var(--card-bg);
     border: 1px solid var(--glass-border);
     border-radius: 20px;
     padding: 30px;
     backdrop-filter: blur(10px);
-    height: 250px;
+    height: 500px;
+}
+
+.chart-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 15px;
 }
 
 /* Features Section */
@@ -963,6 +1078,12 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 15px 40px rgba(153, 69, 255, 0.3);
 }
 
+.chart-btn:hover {
+    background: rgba(20, 241, 149, 0.2);
+    border-color: var(--secondary-color);
+    box-shadow: 0 15px 40px rgba(20, 241, 149, 0.3);
+}
+
 /* Footer */
 .footer {
     padding: 60px 0 40px;
@@ -1018,6 +1139,17 @@ h1, h2, h3, h4, h5, h6 {
 
 .footer-disclaimer p {
     margin-bottom: 15px;
+}
+
+.contract-info {
+    background: rgba(153, 69, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    font-family: monospace;
+    font-size: 0.85rem;
+    word-break: break-all;
 }
 
 .trends-link {
@@ -1258,6 +1390,10 @@ body[data-theme="light"] .music-progress {
         width: 280px;
         height: 380px;
     }
+    
+    .chart-container {
+        height: 400px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1327,6 +1463,20 @@ body[data-theme="light"] .music-progress {
         margin-top: 40px;
     }
     
+    .token-links {
+        gap: 12px;
+    }
+    
+    .token-link {
+        padding: 12px 20px;
+        font-size: 0.85rem;
+    }
+    
+    .chart-container {
+        height: 350px;
+        padding: 20px;
+    }
+    
     /* Mobile Music Player */
     .music-player {
         width: 280px;
@@ -1368,11 +1518,21 @@ body[data-theme="light"] .music-progress {
     
     /* Adjust theme toggle position */
     .theme-toggle {
-        bottom: 20px;
+        bottom: 80px;
         right: 15px;
         width: 45px;
         height: 45px;
         font-size: 1.1rem;
+    }
+    
+    .hero-info {
+        padding: 15px;
+        font-size: 0.85rem;
+    }
+    
+    .info-item code {
+        font-size: 0.75rem;
+        padding: 3px 6px;
     }
 }
 
@@ -1405,6 +1565,20 @@ body[data-theme="light"] .music-progress {
         font-size: 1rem;
     }
     
+    .token-link {
+        padding: 10px 15px;
+        font-size: 0.8rem;
+    }
+    
+    .token-link span {
+        font-size: 0.75rem;
+    }
+    
+    .chart-container {
+        height: 300px;
+        padding: 15px;
+    }
+    
     /* Smaller screens */
     .music-player {
         width: 260px;
@@ -1434,11 +1608,24 @@ body[data-theme="light"] .music-progress {
     }
     
     .theme-toggle {
-        bottom: 15px;
+        bottom: 75px;
         right: 10px;
         width: 40px;
         height: 40px;
         font-size: 1rem;
+    }
+    
+    .hero-info {
+        padding: 12px;
+        font-size: 0.8rem;
+    }
+    
+    .info-item {
+        gap: 8px;
+    }
+    
+    .info-item i {
+        width: 16px;
     }
 }
 
@@ -1471,10 +1658,20 @@ body[data-theme="light"] .music-progress {
     }
     
     .theme-toggle {
-        bottom: 10px;
+        bottom: 70px;
         right: 8px;
         width: 35px;
         height: 35px;
         font-size: 0.9rem;
+    }
+    
+    .hero-info {
+        padding: 10px;
+        font-size: 0.75rem;
+    }
+    
+    .token-link {
+        padding: 8px 12px;
+        font-size: 0.75rem;
     }
 }
