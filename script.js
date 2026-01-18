@@ -81,6 +81,7 @@ const priceChangeIcon = document.getElementById('priceChangeIcon');
 
 async function fetchTokenData() {
     try {
+        console.log("Fetching real-time data from DexScreener...");
         const response = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${TOKEN_ADDRESS}`);
         const data = await response.json();
         
@@ -93,23 +94,33 @@ async function fetchTokenData() {
                 livePriceElement.textContent = `$${price < 0.0001 ? price.toFixed(8) : price.toFixed(6)}`;
             }
             
-            // Update Price Change
+            // Update Price Change (24h)
             if (pair.priceChange && pair.priceChange.h24 !== undefined) {
                 const change = parseFloat(pair.priceChange.h24);
                 const isPositive = change >= 0;
-                if (priceChangeElement) priceChangeElement.textContent = `${Math.abs(change).toFixed(2)}%`;
-                if (priceChangeContainer) priceChangeContainer.className = `price-change ${isPositive ? 'positive' : 'negative'}`;
-                if (priceChangeIcon) priceChangeIcon.className = `fas fa-arrow-${isPositive ? 'up' : 'down'}`;
+                if (priceChangeElement) {
+                    priceChangeElement.textContent = `${isPositive ? '+' : ''}${change.toFixed(2)}%`;
+                }
+                if (priceChangeContainer) {
+                    priceChangeContainer.className = `price-change ${isPositive ? 'positive' : 'negative'}`;
+                }
+                if (priceChangeIcon) {
+                    priceChangeIcon.className = `fas fa-arrow-${isPositive ? 'up' : 'down'}`;
+                }
             }
             
-            // Update Market Cap
+            // Update Market Cap (FDV or Mkt Cap)
             const mcap = pair.fdv || pair.marketCap;
-            if (marketCapElement) marketCapElement.textContent = formatCurrency(mcap);
+            if (marketCapElement) {
+                marketCapElement.textContent = formatCurrency(mcap);
+            }
             
             // Update Liquidity
             if (pair.liquidity && pair.liquidity.usd) {
                 const liq = pair.liquidity.usd;
-                if (liquidityElement) liquidityElement.textContent = formatCurrency(liq);
+                if (liquidityElement) {
+                    liquidityElement.textContent = formatCurrency(liq);
+                }
             }
         }
     } catch (error) {
@@ -119,9 +130,10 @@ async function fetchTokenData() {
 
 function formatCurrency(value) {
     if (!value) return '$0';
+    if (value >= 1000000000) return `$${(value / 1000000000).toFixed(2)}B`;
     if (value >= 1000000) return `$${(value / 1000000).toFixed(2)}M`;
     if (value >= 1000) return `$${(value / 1000).toFixed(2)}K`;
-    return `$${value.toFixed(2)}`;
+    return `$${parseFloat(value).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
 }
 
 // Initial fetch and interval
