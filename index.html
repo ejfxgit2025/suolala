@@ -56,14 +56,14 @@
                 <a href="#roadmap" class="mobile-nav-link" data-section="roadmap">Roadmap</a>
                 <a href="#community" class="mobile-nav-link" data-section="community">Community</a>
                 <div class="mobile-social">
-                    <a href="https://twitter.com" target="_blank" class="mobile-social-btn">
-                        <i class="fab fa-twitter"></i> Twitter
+                    <a href="https://x.com/suolalax" target="_blank" class="mobile-social-btn">
+                        <svg class="x-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> X
                     </a>
-                    <a href="https://telegram.org" target="_blank" class="mobile-social-btn">
+                    <a href="https://t.me/suolalacto" target="_blank" class="mobile-social-btn">
                         <i class="fab fa-telegram"></i> Telegram
                     </a>
-                    <a href="https://trends.fun" target="_blank" class="mobile-social-btn">
-                        <i class="fas fa-chart-line"></i> trends.fun
+                    <a href="https://trends.fun/token/CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8" target="_blank" class="mobile-social-btn">
+                        <i class="fas fa-fire"></i> trends.fun
                     </a>
                 </div>
             </div>
@@ -101,7 +101,21 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">$SUOLALA Token</h2>
-                <p class="section-subtitle">The future of meme utility</p>
+                <p class="section-subtitle">The future of meme utility on Solana</p>
+            </div>
+            
+            <!-- Contract Address -->
+            <div class="contract-address-box">
+                <div class="contract-label">
+                    <i class="fas fa-file-contract"></i>
+                    <span>Contract Address (Solana)</span>
+                </div>
+                <div class="contract-value">
+                    <code id="contractAddress">CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8</code>
+                    <button class="copy-btn" onclick="copyContract()">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
             </div>
             
             <div class="token-stats">
@@ -110,10 +124,10 @@
                         <h3>Live Price</h3>
                         <div id="priceChangeContainer" class="price-change">
                             <i id="priceChangeIcon" class="fas"></i>
-                            <span id="priceChange">--%</span>
+                            <span id="priceChange">Loading...</span>
                         </div>
                     </div>
-                    <div class="stat-value" id="livePrice">$0.00</div>
+                    <div class="stat-value" id="livePrice">Loading...</div>
                     <div class="stat-subtext">Per $SUOLALA</div>
                 </div>
                 
@@ -121,7 +135,7 @@
                     <div class="stat-header">
                         <h3>Market Cap</h3>
                     </div>
-                    <div class="stat-value" id="marketCap">$0</div>
+                    <div class="stat-value" id="marketCap">Loading...</div>
                     <div class="stat-subtext">Fully Diluted</div>
                 </div>
                 
@@ -129,15 +143,39 @@
                     <div class="stat-header">
                         <h3>Liquidity</h3>
                     </div>
-                    <div class="stat-value" id="liquidity">$0</div>
+                    <div class="stat-value" id="liquidity">Loading...</div>
                     <div class="stat-subtext">Total USD</div>
+                </div>
+                
+                <div class="token-stat-card">
+                    <div class="stat-header">
+                        <h3>24h Volume</h3>
+                    </div>
+                    <div class="stat-value" id="volume24h">Loading...</div>
+                    <div class="stat-subtext">Trading Volume</div>
+                </div>
+                
+                <div class="token-stat-card">
+                    <div class="stat-header">
+                        <h3>24h Transactions</h3>
+                    </div>
+                    <div class="stat-value" id="txns24h">Loading...</div>
+                    <div class="stat-subtext">Buys + Sells</div>
+                </div>
+                
+                <div class="token-stat-card">
+                    <div class="stat-header">
+                        <h3>Holders</h3>
+                    </div>
+                    <div class="stat-value" id="holders">--</div>
+                    <div class="stat-subtext">Unique Wallets</div>
                 </div>
             </div>
             
-            <div class="chart-container" style="height: 600px; padding: 0; overflow: hidden;">
+            <div class="chart-container" style="height: 750px; padding: 0; overflow: hidden;">
                 <iframe 
                     src="https://dexscreener.com/solana/79Qaq5b1JfC8bFuXkAvXTR67fRPmMjMVNkEA3bb8bLzi?embed=1&theme=dark&trades=0&info=0" 
-                    style="width: 100%; height: 100%; border: none;">
+                    style="width: 100%; height: 100%; border: none; border-radius: 20px;">
                 </iframe>
             </div>
         </div>
@@ -336,16 +374,16 @@
             </div>
             
             <div class="community-buttons">
-                <a href="https://twitter.com" target="_blank" class="community-btn twitter-btn">
-                    <i class="fab fa-twitter"></i>
-                    <span>Twitter</span>
+                <a href="https://x.com/suolalax" target="_blank" class="community-btn twitter-btn">
+                    <svg class="x-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    <span>X</span>
                 </a>
-                <a href="https://telegram.org" target="_blank" class="community-btn telegram-btn">
+                <a href="https://t.me/suolalacto" target="_blank" class="community-btn telegram-btn">
                     <i class="fab fa-telegram"></i>
                     <span>Telegram</span>
                 </a>
-                <a href="https://trends.fun" target="_blank" class="community-btn trends-btn">
-                    <i class="fas fa-chart-line"></i>
+                <a href="https://trends.fun/token/CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8" target="_blank" class="community-btn trends-btn">
+                    <i class="fas fa-fire"></i>
                     <span>trends.fun</span>
                 </a>
             </div>
@@ -366,21 +404,21 @@
                 </div>
                 
                 <div class="footer-links">
-                    <a href="https://twitter.com" target="_blank" class="footer-social">
-                        <i class="fab fa-twitter"></i>
+                    <a href="https://x.com/suolalax" target="_blank" class="footer-social">
+                        <svg class="x-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                     </a>
-                    <a href="https://telegram.org" target="_blank" class="footer-social">
+                    <a href="https://t.me/suolalacto" target="_blank" class="footer-social">
                         <i class="fab fa-telegram"></i>
                     </a>
-                    <a href="https://trends.fun" target="_blank" class="footer-social">
-                        <i class="fas fa-chart-line"></i>
+                    <a href="https://trends.fun/token/CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8" target="_blank" class="footer-social">
+                        <i class="fas fa-fire"></i>
                     </a>
                 </div>
                 
                 <div class="footer-disclaimer">
-                    <p>© 2023 SUOLALA. All rights reserved. This is a meme token with no intrinsic value or expectation of financial return. Cryptocurrency investments are highly volatile and risky. Only invest what you can afford to lose.</p>
+                    <p>© 2025 SUOLALA. All rights reserved. This is a meme token with no intrinsic value or expectation of financial return. Cryptocurrency investments are highly volatile and risky. Only invest what you can afford to lose.</p>
                     <p class="trends-link">
-                        Powered by <a href="https://trends.fun" target="_blank">trends.fun</a>
+                        Powered by <a href="https://trends.fun/token/CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8" target="_blank">trends.fun</a>
                     </p>
                 </div>
             </div>

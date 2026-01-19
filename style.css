@@ -427,8 +427,14 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateX(10px);
 }
 
-.mobile-social-btn i {
+.mobile-social-btn i,
+.mobile-social-btn .x-icon {
     font-size: 1.2rem;
+}
+
+.x-icon {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 /* Hero Section - Updated with GIF */
@@ -536,8 +542,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Updated Hero Girl with GIF */
 .hero-girl {
-    width: 300px;
-    height: 400px;
+    width: 380px;
+    height: 480px;
     margin: 0 auto;
     background: var(--card-bg);
     border-radius: 30px;
@@ -592,6 +598,72 @@ h1, h2, h3, h4, h5, h6 {
 .section-subtitle {
     font-size: 1.2rem;
     color: var(--text-secondary);
+}
+
+/* Contract Address Box */
+.contract-address-box {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    padding: 20px 25px;
+    margin-bottom: 40px;
+    backdrop-filter: blur(10px);
+}
+
+.contract-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+.contract-label i {
+    color: var(--primary-color);
+}
+
+.contract-value {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.contract-value code {
+    font-family: 'Space Grotesk', monospace;
+    font-size: 1rem;
+    color: var(--secondary-color);
+    background: rgba(20, 241, 149, 0.1);
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(20, 241, 149, 0.2);
+    word-break: break-all;
+    flex: 1;
+    min-width: 200px;
+}
+
+.copy-btn {
+    background: var(--gradient-primary);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.copy-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(153, 69, 255, 0.4);
+}
+
+.copy-btn.copied {
+    background: var(--success);
 }
 
 .token-stats {
@@ -971,6 +1043,12 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 15px 40px rgba(153, 69, 255, 0.3);
 }
 
+.community-link-btn:hover {
+    background: rgba(20, 241, 149, 0.2);
+    border-color: var(--secondary-color);
+    box-shadow: 0 15px 40px rgba(20, 241, 149, 0.3);
+}
+
 /* Footer */
 .footer {
     padding: 60px 0 40px;
@@ -1254,17 +1332,21 @@ body[data-theme="light"] .music-progress {
     }
     
     .features-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
     
     .token-stats {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
     
     .hero-girl {
-        width: 280px;
-        height: 380px;
+        width: 340px;
+        height: 430px;
+    }
+    
+    .contract-value code {
+        font-size: 0.85rem;
     }
 }
 
@@ -1330,9 +1412,59 @@ body[data-theme="light"] .music-progress {
     }
     
     .hero-girl {
-        width: 250px;
-        height: 350px;
+        width: 300px;
+        height: 380px;
         margin-top: 40px;
+    }
+    
+    /* Token Stats Grid - 2 columns on tablet */
+    .token-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .token-stat-card {
+        padding: 20px;
+    }
+    
+    .stat-value {
+        font-size: 1.8rem;
+    }
+    
+    /* Features Grid */
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .feature-card {
+        padding: 30px 20px;
+    }
+    
+    /* Contract Address Box */
+    .contract-address-box {
+        padding: 15px 20px;
+    }
+    
+    .contract-value {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .contract-value code {
+        font-size: 0.75rem;
+        text-align: center;
+        min-width: auto;
+    }
+    
+    .copy-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Chart Container */
+    .chart-container {
+        height: 550px !important;
     }
     
     /* Mobile Music Player */
@@ -1393,24 +1525,96 @@ body[data-theme="light"] .music-progress {
         font-size: 2.2rem;
     }
     
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
     .nfts-grid {
         grid-template-columns: 1fr;
     }
     
     .hero-girl {
         width: 100%;
-        max-width: 300px;
+        max-width: 280px;
         height: 350px;
     }
     
+    /* Token Stats - Single column on mobile */
+    .token-stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .token-stat-card {
+        padding: 18px;
+    }
+    
     .stat-value {
-        font-size: 2rem;
+        font-size: 1.6rem;
+    }
+    
+    .stat-header h3 {
+        font-size: 0.95rem;
+    }
+    
+    .stat-subtext {
+        font-size: 0.8rem;
+    }
+    
+    /* Contract Address */
+    .contract-address-box {
+        padding: 12px 15px;
+    }
+    
+    .contract-label {
+        font-size: 0.8rem;
+    }
+    
+    .contract-value code {
+        font-size: 0.65rem;
+        padding: 8px 10px;
+    }
+    
+    /* Chart */
+    .chart-container {
+        height: 450px !important;
     }
     
     .phase-marker {
         width: 40px;
         height: 40px;
         font-size: 1rem;
+    }
+    
+    .phase-content {
+        margin-left: 15px;
+        padding: 15px;
+    }
+    
+    .phase-title {
+        font-size: 1.2rem;
+    }
+    
+    /* NFT Cards */
+    .nft-placeholder {
+        height: 200px;
+    }
+    
+    .nft-info {
+        padding: 20px;
+    }
+    
+    /* Section spacing */
+    .token-section,
+    .features-section,
+    .nfts-section,
+    .roadmap-section,
+    .community-section {
+        padding: 60px 0;
+    }
+    
+    .section-header {
+        margin-bottom: 40px;
     }
     
     /* Smaller screens */
@@ -1452,6 +1656,26 @@ body[data-theme="light"] .music-progress {
 
 /* Extra small screens */
 @media (max-width: 320px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-title.build-rise {
+        font-size: 1.8rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .stat-value {
+        font-size: 1.4rem;
+    }
+    
+    .contract-value code {
+        font-size: 0.55rem;
+    }
+    
     .music-player {
         width: 240px;
         max-width: 240px;
@@ -1484,5 +1708,9 @@ body[data-theme="light"] .music-progress {
         width: 35px;
         height: 35px;
         font-size: 0.9rem;
+    }
+    
+    .chart-container {
+        height: 350px !important;
     }
 }

@@ -9,6 +9,36 @@ const priceChangeElement = document.getElementById('priceChange');
 const particlesContainer = document.querySelector('.particles-container');
 const floatingShapes = document.querySelector('.floating-shapes');
 
+// Contract Address: CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8
+const CONTRACT_ADDRESS = 'CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8';
+
+// Copy Contract Address Function
+function copyContract() {
+    const contractText = document.getElementById('contractAddress').textContent;
+    navigator.clipboard.writeText(contractText).then(() => {
+        const copyBtn = document.querySelector('.copy-btn');
+        const originalIcon = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+            copyBtn.innerHTML = originalIcon;
+            copyBtn.classList.remove('copied');
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy:', err);
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = contractText;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    });
+}
+
+// Make copyContract available globally
+window.copyContract = copyContract;
+
 // Music Player Elements
 const suolalaAudio = document.getElementById('suolalaAudio');
 const musicToggle = document.getElementById('musicToggle');
@@ -72,26 +102,34 @@ function setupSmoothScrolling() {
     });
 }
 
-// Token Data Fetching
-const TOKEN_ADDRESS = '79Qaq5b1JfC8bFuXkAvXTR67fRPmMjMVNkEA3bb8bLzi';
+// Token Data Fetching - Using DexScreener pair address
+const PAIR_ADDRESS = '79Qaq5b1JfC8bFuXkAvXTR67fRPmMjMVNkEA3bb8bLzi';
 const marketCapElement = document.getElementById('marketCap');
-const liquidityElement = document.getElementById('liquidity');
+const holdersElement = document.getElementById('holders');
 const priceChangeContainer = document.getElementById('priceChangeContainer');
 const priceChangeIcon = document.getElementById('priceChangeIcon');
 
 async function fetchTokenData() {
     try {
         console.log("Fetching real-time data from DexScreener...");
-        const response = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${TOKEN_ADDRESS}`);
+        const response = await fetch(`https://api.dexscreener.com/latest/dex/pairs/solana/${PAIR_ADDRESS}`);
         const data = await response.json();
         
-        if (data.pairs && data.pairs.length > 0) {
-            const pair = data.pairs[0];
+        if (data.pair) {
+            const pair = data.pair;
             
             // Update Price
             const price = parseFloat(pair.priceUsd);
             if (livePriceElement) {
-                livePriceElement.textContent = `$${price < 0.0001 ? price.toFixed(8) : price.toFixed(6)}`;
+                if (price < 0.000001) {
+                    livePriceElement.textContent = `$${price.toFixed(10)}`;
+                } else if (price < 0.0001) {
+                    livePriceElement.textContent = `$${price.toFixed(8)}`;
+                } else if (price < 0.01) {
+                    livePriceElement.textContent = `$${price.toFixed(6)}`;
+                } else {
+                    livePriceElement.textContent = `$${price.toFixed(4)}`;
+                }
             }
             
             // Update Price Change (24h)
@@ -109,18 +147,34 @@ async function fetchTokenData() {
                 }
             }
             
-            // Update Market Cap (FDV or Mkt Cap)
+            // Update Market Cap (FDV)
             const mcap = pair.fdv || pair.marketCap;
             if (marketCapElement) {
                 marketCapElement.textContent = formatCurrency(mcap);
             }
             
+            // Update Holders count if available
+            if (holdersElement && pair.info && pair.info.holders) {
+                holdersElement.textContent = formatNumber(pair.info.holders);
+            }
+            
+            // Update 24h Volume
+            const volume24hElement = document.getElementById('volume24h');
+            if (volume24hElement && pair.volume && pair.volume.h24) {
+                volume24hElement.textContent = formatCurrency(pair.volume.h24);
+            }
+            
             // Update Liquidity
-            if (pair.liquidity && pair.liquidity.usd) {
-                const liq = pair.liquidity.usd;
-                if (liquidityElement) {
-                    liquidityElement.textContent = formatCurrency(liq);
-                }
+            const liquidityElement = document.getElementById('liquidity');
+            if (liquidityElement && pair.liquidity && pair.liquidity.usd) {
+                liquidityElement.textContent = formatCurrency(pair.liquidity.usd);
+            }
+            
+            // Update 24h Transactions
+            const txns24hElement = document.getElementById('txns24h');
+            if (txns24hElement && pair.txns && pair.txns.h24) {
+                const totalTxns = (pair.txns.h24.buys || 0) + (pair.txns.h24.sells || 0);
+                txns24hElement.textContent = formatNumber(totalTxns);
             }
         }
     } catch (error) {
@@ -133,12 +187,19 @@ function formatCurrency(value) {
     if (value >= 1000000000) return `$${(value / 1000000000).toFixed(2)}B`;
     if (value >= 1000000) return `$${(value / 1000000).toFixed(2)}M`;
     if (value >= 1000) return `$${(value / 1000).toFixed(2)}K`;
-    return `$${parseFloat(value).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    return `$${parseFloat(value).toFixed(2)}`;
 }
 
-// Initial fetch and interval
+function formatNumber(value) {
+    if (!value) return '0';
+    if (value >= 1000000) return `${(value / 1000000).toFixed(2)}M`;
+    if (value >= 1000) return `${(value / 1000).toFixed(1)}K`;
+    return value.toLocaleString();
+}
+
+// Initial fetch and interval (refresh every 15 seconds)
 fetchTokenData();
-setInterval(fetchTokenData, 10000);
+setInterval(fetchTokenData, 15000);
 
 // Enhanced Background Animations
 function createParticles() {
