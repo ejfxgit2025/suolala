@@ -2,32 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SUOLALA - The Solana Meme Revolution</title>
-    <link rel="stylesheet" href="style.css">
+    <title>SUOLALA - The Premier Chinese Ticker on Solana</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
 </head>
 <body>
-    <!-- Background Animation Elements -->
+    <!-- Background Elements -->
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
-    <div class="floating-shapes"></div>
-    <div class="particles-container"></div>
-    
-    <!-- Language Toggle -->
-    <div class="language-toggle">
-        <button class="lang-btn active" id="langEn" title="English">
-            <img src="https://flagcdn.com/w40/gb.png" alt="English" class="flag-icon">
-        </button>
-        <button class="lang-btn" id="langZh" title="中文">
-            <img src="https://flagcdn.com/w40/cn.png" alt="中文" class="flag-icon">
-        </button>
+    <div class="floating-shapes">
+        <div class="shape-1"></div>
+        <div class="shape-2"></div>
+        <div class="shape-3"></div>
+        <div class="shape-4"></div>
     </div>
-    
+    <div class="particles-container"></div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -40,7 +33,7 @@
                 <span class="logo-text" data-i18n="nav.title">SUOLALA</span>
             </div>
             
-            <div class="nav-menu desktop-menu">
+            <div class="desktop-menu">
                 <a href="#home" class="nav-link" data-i18n="nav.home">Home</a>
                 <a href="#token" class="nav-link" data-i18n="nav.token">Token</a>
                 <a href="#nfts" class="nav-link" data-i18n="nav.nfts">NFTs</a>
@@ -53,67 +46,112 @@
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
+    <!-- Mobile Menu Overlay -->
     <div class="mobile-menu-overlay" id="mobileMenuOverlay">
         <div class="mobile-menu-container">
             <button class="mobile-menu-close" id="mobileMenuClose">
                 <i class="fas fa-times"></i>
             </button>
             <div class="mobile-menu-content">
-                <a href="#home" class="mobile-nav-link" data-i18n="nav.home" data-section="home">Home</a>
-                <a href="#token" class="mobile-nav-link" data-i18n="nav.token" data-section="token">Token</a>
-                <a href="#nfts" class="mobile-nav-link" data-i18n="nav.nfts" data-section="nfts">NFTs</a>
-                <a href="#roadmap" class="mobile-nav-link" data-i18n="nav.roadmap" data-section="roadmap">Roadmap</a>
+                <a href="#home" class="mobile-nav-link" data-i18n="nav.home">Home</a>
+                <a href="#token" class="mobile-nav-link" data-i18n="nav.token">Token</a>
+                <a href="#nfts" class="mobile-nav-link" data-i18n="nav.nfts">NFTs</a>
+                <a href="#roadmap" class="mobile-nav-link" data-i18n="nav.roadmap">Roadmap</a>
+                
                 <div class="mobile-social">
-                    <a href="https://x.com/suolalax" target="_blank" class="mobile-social-btn">
-                        <svg class="x-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> X
+                    <a href="https://twitter.com/SUOLALA" class="mobile-social-btn" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                        <span data-i18n="community.x">X (Twitter)</span>
                     </a>
-                    <a href="https://t.me/suolalacto" target="_blank" class="mobile-social-btn">
-                        <i class="fab fa-telegram"></i> Telegram
+                    <a href="https://t.me/SUOLALA" class="mobile-social-btn" target="_blank">
+                        <i class="fab fa-telegram-plane"></i>
+                        <span data-i18n="community.telegram">Telegram</span>
                     </a>
-                    <a href="https://trends.fun/token/CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8" target="_blank" class="mobile-social-btn">
-                        <i class="fas fa-fire"></i> trends.fun
+                    <a href="https://trends.fun/SUOLALA" class="mobile-social-btn" target="_blank">
+                        <i class="fas fa-chart-line"></i>
+                        <span data-i18n="community.trends">trends.fun</span>
                     </a>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button class="lang-btn" id="langEn">
+            <img src="https://flagcdn.com/w40/us.png" class="flag-icon" alt="English">
+        </button>
+        <button class="lang-btn" id="langZh">
+            <img src="https://flagcdn.com/w40/cn.png" class="flag-icon" alt="中文">
+        </button>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-player">
+        <button class="music-toggle" id="musicToggle">
+            <i class="fas fa-play" id="musicIcon"></i>
+        </button>
+        <div class="music-info">
+            <span class="song-title" data-i18n="music.title">SUOLALA Theme</span>
+            <div class="volume-control">
+                <i class="fas fa-volume-down"></i>
+                <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
+            </div>
+        </div>
+        <div class="music-progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <audio id="suolalaAudio" loop>
+            <source src="./suolalasong.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
     <!-- Hero Section -->
-    <section class="hero-section" id="home">
+    <section id="home" class="hero-section">
         <div class="container">
             <div class="hero-content">
                 <div class="badge">
-                    <i class="fas fa-bolt"></i>
+                    <div class="solana-logo small">
+                        <div class="solana-inner"></div>
+                        <div class="solana-inner"></div>
+                        <div class="solana-inner"></div>
+                    </div>
                     <span data-i18n="hero.solana">SOLANA</span>
                 </div>
-                <h1 class="hero-title">SUOLALA$索拉拉</h1>
-                <h1 class="hero-title build-rise" data-i18n="hero.title2">We Build, We Rise</h1>
-                <p class="hero-subtitle" data-i18n="hero.subtitle">The premier Chinese ticker on Solana, inspired by Lily Liu's tweet and born as an original IP that captures the resilient spirit of Solana builders.</p>
+                
+                <h1 class="hero-title" data-i18n="nav.title">SUOLALA</h1>
+                <h2 class="hero-title build-rise" data-i18n="hero.title2">We Build, We Rise</h2>
+                
+                <p class="hero-subtitle" data-i18n="hero.subtitle">
+                    The premier Chinese ticker on Solana, inspired by Lily Liu's tweet and born as an original IP that captures the resilient spirit of Solana builders.
+                </p>
+                
                 <div class="hero-buttons">
-                    <a href="https://jup.ag/swap/SOL-CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8" target="_blank" class="btn btn-primary">
-                        <i class="fas fa-coins"></i> <span data-i18n="hero.buy">Buy $SUOLALA</span>
+                    <a href="https://birdeye.so/token/CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8?chain=solana" class="btn btn-primary" target="_blank">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span data-i18n="hero.buy">Buy $SUOLALA</span>
                     </a>
-                    <a href="https://dexscreener.com/solana/79Qaq5b1JfC8bFuXkAvXTR67fRPmMjMVNkEA3bb8bLzi" target="_blank" class="btn btn-secondary">
-                        <i class="fas fa-chart-line"></i> <span data-i18n="hero.chart">View Chart</span>
+                    <a href="https://dexscreener.com/solana/79Qaq5b1JfC8bFuXkAvXTR67fRPmMjMVNkEA3bb8bLzi" class="btn btn-secondary" target="_blank">
+                        <i class="fas fa-chart-line"></i>
+                        <span data-i18n="hero.chart">View Chart</span>
                     </a>
                 </div>
-            </div>
-            <div class="hero-girl">
-                <img src="suolaladance.gif" alt="SUOLALA Character Dancing" class="suolala-gif">
+                
+                <div class="hero-girl">
+                    <img src="./suolalagirl.gif" alt="SUOLALA Girl" class="suolala-gif">
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Token Section -->
-    <section class="token-section" id="token">
+    <section id="token" class="token-section">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title" data-i18n="token.title">$SUOLALA Token</h2>
                 <p class="section-subtitle" data-i18n="token.subtitle">The future of meme utility on Solana</p>
             </div>
             
-            <!-- Contract Address -->
             <div class="contract-address-box">
                 <div class="contract-label">
                     <i class="fas fa-file-contract"></i>
@@ -123,7 +161,7 @@
                     <code id="contractAddress">CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8</code>
                     <button class="copy-btn" onclick="copyContract()">
                         <i class="fas fa-copy"></i>
-                        <span class="copy-text" data-i18n="token.copy">Copy</span>
+                        <span data-i18n="token.copy">Copy</span>
                     </button>
                 </div>
             </div>
@@ -132,12 +170,12 @@
                 <div class="token-stat-card">
                     <div class="stat-header">
                         <h3 data-i18n="token.livePrice">Live Price</h3>
-                        <div id="priceChangeContainer" class="price-change">
-                            <i id="priceChangeIcon" class="fas"></i>
-                            <span id="priceChange">Loading...</span>
+                        <div class="price-change" id="priceChangeContainer">
+                            <i class="fas fa-arrow-up" id="priceChangeIcon"></i>
+                            <span id="priceChange">+0.00%</span>
                         </div>
                     </div>
-                    <div class="stat-value" id="livePrice">Loading...</div>
+                    <div class="stat-value" id="livePrice">$0.0000</div>
                     <div class="stat-subtext" data-i18n="token.perToken">Per $SUOLALA</div>
                 </div>
                 
@@ -145,7 +183,7 @@
                     <div class="stat-header">
                         <h3 data-i18n="token.marketCap">Market Cap</h3>
                     </div>
-                    <div class="stat-value" id="marketCap">Loading...</div>
+                    <div class="stat-value" id="marketCap">$0</div>
                     <div class="stat-subtext" data-i18n="token.fdv">Fully Diluted</div>
                 </div>
                 
@@ -153,7 +191,7 @@
                     <div class="stat-header">
                         <h3 data-i18n="token.liquidity">Liquidity</h3>
                     </div>
-                    <div class="stat-value" id="liquidity">Loading...</div>
+                    <div class="stat-value" id="liquidity">$0</div>
                     <div class="stat-subtext" data-i18n="token.totalUSD">Total USD</div>
                 </div>
                 
@@ -161,7 +199,7 @@
                     <div class="stat-header">
                         <h3 data-i18n="token.volume24h">24h Volume</h3>
                     </div>
-                    <div class="stat-value" id="volume24h">Loading...</div>
+                    <div class="stat-value" id="volume24h">$0</div>
                     <div class="stat-subtext" data-i18n="token.tradingVolume">Trading Volume</div>
                 </div>
                 
@@ -169,7 +207,7 @@
                     <div class="stat-header">
                         <h3 data-i18n="token.transactions24h">24h Transactions</h3>
                     </div>
-                    <div class="stat-value" id="txns24h">Loading...</div>
+                    <div class="stat-value" id="txns24h">0</div>
                     <div class="stat-subtext" data-i18n="token.buysSells">Buys + Sells</div>
                 </div>
                 
@@ -177,22 +215,23 @@
                     <div class="stat-header">
                         <h3 data-i18n="token.holders">Holders</h3>
                     </div>
-                    <div class="stat-value" id="holders">--</div>
+                    <div class="stat-value" id="holders">0</div>
                     <div class="stat-subtext" data-i18n="token.uniqueWallets">Unique Wallets</div>
                 </div>
             </div>
             
-            <div class="chart-container" style="height: 750px; padding: 0; overflow: hidden;">
-                <iframe 
-                    src="https://dexscreener.com/solana/79Qaq5b1JfC8bFuXkAvXTR67fRPmMjMVNkEA3bb8bLzi?embed=1&theme=dark&trades=0&info=0" 
-                    style="width: 100%; height: 100%; border: none; border-radius: 20px;">
+            <div class="chart-container">
+                <iframe src="https://dexscreener.com/solana/79Qaq5b1JfC8bFuXkAvXTR67fRPmMjMVNkEA3bb8bLzi?embed=1&info=0&controls=0&theme=dark" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:none; border-radius: 20px;">
                 </iframe>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="features-section">
+    <section id="features" class="features-section">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title" data-i18n="features.title">Why $SUOLALA?</h2>
@@ -235,29 +274,8 @@
         </div>
     </section>
 
-    <!-- Music Player -->
-    <div class="music-player">
-        <audio id="suolalaAudio" loop>
-            <source src="suolalasong.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        <button class="music-toggle" id="musicToggle">
-            <i class="fas fa-play" id="musicIcon"></i>
-        </button>
-        <div class="music-info">
-            <span class="song-title" data-i18n="music.title">SUOLALA Theme</span>
-            <div class="volume-control">
-                <i class="fas fa-volume-up"></i>
-                <input type="range" min="0" max="100" value="70" class="volume-slider" id="volumeSlider">
-            </div>
-        </div>
-        <div class="music-progress">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-    </div>
-
     <!-- NFTs Section -->
-    <section class="nfts-section" id="nfts">
+    <section id="nfts" class="nfts-section">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title" data-i18n="nfts.title">SUOLALA NFTs</h2>
@@ -267,50 +285,45 @@
             <div class="nfts-grid">
                 <div class="nft-card">
                     <div class="nft-image-container">
-                        <img src="nft1.jpeg" alt="Suolala #174" class="nft-image">
+                        <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="SUOLALA NFT 1" class="nft-image">
                     </div>
                     <div class="nft-info">
-                        <h3 class="nft-name">Suolala #174</h3>
-                        <a href="https://magiceden.io/item-details/34yrodb6gSi534wCLf78CFXtYaV55PPaHZiXf4yZgvBQ" target="_blank" class="btn btn-nft">
-                            <i class="fas fa-shopping-cart"></i> <span data-i18n="nfts.buy">Buy NFT</span>
-                        </a>
+                        <h3 class="nft-name">SUOLALA #001</h3>
+                        <p class="nft-desc">Legendary founding member NFT</p>
+                        <button class="btn btn-nft" data-i18n="nfts.buy">Buy NFT</button>
                     </div>
                 </div>
                 
                 <div class="nft-card">
                     <div class="nft-image-container">
-                        <img src="nft2.jpeg" alt="Suolala #3111" class="nft-image">
+                        <img src="https://images.unsplash.com/photo-1551085254-e96b210db58a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="SUOLALA NFT 2" class="nft-image">
                     </div>
                     <div class="nft-info">
-                        <h3 class="nft-name">Suolala #3111</h3>
-                        <a href="https://magiceden.io/item-details/31V5a6sjwWiUu7ygk8mwvvYMwCBxRSCMpeTR2CcWhjMd" target="_blank" class="btn btn-nft">
-                            <i class="fas fa-shopping-cart"></i> <span data-i18n="nfts.buy">Buy NFT</span>
-                        </a>
+                        <h3 class="nft-name">SUOLALA #002</h3>
+                        <p class="nft-desc">Exclusive community access pass</p>
+                        <button class="btn btn-nft" data-i18n="nfts.buy">Buy NFT</button>
                     </div>
                 </div>
                 
                 <div class="nft-card">
                     <div class="nft-image-container">
-                        <img src="nft3.jpeg" alt="Suolala #3317" class="nft-image">
+                        <img src="https://images.unsplash.com/photo-1579546929662-711aa81148cf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="SUOLALA NFT 3" class="nft-image">
                     </div>
                     <div class="nft-info">
-                        <h3 class="nft-name">Suolala #3317</h3>
-                        <a href="https://magiceden.io/item-details/4NCY27WPYe7LFY4mvcL6QfKqXjqQHmNa1i1Da5eati4o" target="_blank" class="btn btn-nft">
-                            <i class="fas fa-shopping-cart"></i> <span data-i18n="nfts.buy">Buy NFT</span>
-                        </a>
+                        <h3 class="nft-name">SUOLALA #003</h3>
+                        <p class="nft-desc">Rare Solana ecosystem collector</p>
+                        <button class="btn btn-nft" data-i18n="nfts.buy">Buy NFT</button>
                     </div>
                 </div>
                 
-                <div class="nft-card see-more">
+                <div class="nft-card">
                     <div class="nft-image-container">
-                        <img src="nft4.jpg" alt="See More NFTs" class="nft-image">
+                        <img src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="SUOLALA NFT 4" class="nft-image">
                     </div>
                     <div class="nft-info">
-                        <h3 class="nft-name" data-i18n="nfts.fullCollection">Full Collection</h3>
-                        <p class="nft-desc" data-i18n="nfts.discover">Discover all exclusive NFTs</p>
-                        <a href="https://magiceden.io/marketplace/suolala_" target="_blank" class="btn btn-nft">
-                            <i class="fas fa-arrow-right"></i> <span data-i18n="nfts.seeMore">See More</span>
-                        </a>
+                        <h3 class="nft-name">SUOLALA #004</h3>
+                        <p class="nft-desc">Limited edition artwork</p>
+                        <a href="https://magiceden.io/marketplace/suolala" class="btn btn-nft" target="_blank" data-i18n="nfts.fullCollection">Full Collection</a>
                     </div>
                 </div>
             </div>
@@ -318,7 +331,7 @@
     </section>
 
     <!-- Roadmap Section -->
-    <section class="roadmap-section" id="roadmap">
+    <section id="roadmap" class="roadmap-section">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title" data-i18n="roadmap.title">Roadmap</h2>
@@ -328,7 +341,7 @@
             <div class="roadmap-timeline">
                 <div class="roadmap-phase phase-completed">
                     <div class="phase-marker">
-                        <i class="fas fa-check-circle"></i>
+                        <i class="fas fa-check"></i>
                     </div>
                     <div class="phase-content">
                         <h3 class="phase-title" data-i18n="roadmap.phase1.title">Phase 1 - Completed</h3>
@@ -343,7 +356,7 @@
                 
                 <div class="roadmap-phase phase-current">
                     <div class="phase-marker">
-                        <i class="fas fa-play-circle"></i>
+                        <i class="fas fa-play"></i>
                     </div>
                     <div class="phase-content">
                         <h3 class="phase-title" data-i18n="roadmap.phase2.title">Phase 2 - Current</h3>
@@ -381,17 +394,18 @@
                 <h2 class="section-title" data-i18n="community.title">Join Our Community</h2>
                 <p class="section-subtitle" data-i18n="community.subtitle">Be part of the SUOLALA revolution</p>
             </div>
+            
             <div class="community-buttons">
-                <a href="https://x.com/suolalax" target="_blank" class="community-btn twitter-btn">
-                    <svg class="x-icon" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                <a href="https://twitter.com/SUOLALA" class="community-btn twitter-btn" target="_blank">
+                    <i class="fab fa-twitter"></i>
                     <span data-i18n="community.x">X (Twitter)</span>
                 </a>
-                <a href="https://t.me/suolalacto" target="_blank" class="community-btn telegram-btn">
-                    <i class="fab fa-telegram"></i>
+                <a href="https://t.me/SUOLALA" class="community-btn telegram-btn" target="_blank">
+                    <i class="fab fa-telegram-plane"></i>
                     <span data-i18n="community.telegram">Telegram</span>
                 </a>
-                <a href="https://trends.fun/token/CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8" target="_blank" class="community-btn trends-btn">
-                    <i class="fas fa-fire"></i>
+                <a href="https://trends.fun/SUOLALA" class="community-btn trends-btn" target="_blank">
+                    <i class="fas fa-chart-line"></i>
                     <span data-i18n="community.trends">trends.fun</span>
                 </a>
             </div>
@@ -408,18 +422,22 @@
                         <div class="solana-inner"></div>
                         <div class="solana-inner"></div>
                     </div>
-                    <span class="logo-text">SUOLALA</span>
+                    <div class="logo-text">SUOLALA</div>
                 </div>
                 
+                <!-- UPDATED: Added SNS icon alongside existing social icons -->
                 <div class="footer-links">
-                    <a href="https://x.com/suolalax" target="_blank" class="footer-social">
-                        <svg class="x-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    <a href="https://twitter.com/SUOLALA" class="footer-social" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-twitter"></i>
                     </a>
-                    <a href="https://t.me/suolalacto" target="_blank" class="footer-social">
-                        <i class="fab fa-telegram"></i>
+                    <a href="https://t.me/SUOLALA" class="footer-social" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-telegram-plane"></i>
                     </a>
-                    <a href="https://trends.fun/token/CY1P83KnKwFYostvjQcoR2HJLyEJWRBRaVQmYyyD3cR8" target="_blank" class="footer-social">
-                        <i class="fas fa-fire"></i>
+                    <a href="https://trends.fun/SUOLALA" class="footer-social" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-chart-line"></i>
+                    </a>
+                    <a href="https://v1.sns.id/sub-registrar/%E7%B4%A2%E6%8B%89%E6%8B%89" class="footer-social" target="_blank" rel="noopener noreferrer">
+                        <img src="./sns.png" alt="SNS" style="width: 24px; height: 24px; object-fit: contain;">
                     </a>
                 </div>
                 
@@ -431,6 +449,8 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- JavaScript -->
+    <script src="./script.js"></script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 </body>
 </html>
